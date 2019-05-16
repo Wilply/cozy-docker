@@ -1,0 +1,41 @@
+version: "3"
+
+networks:
+  internet:
+    driver: bridge
+  intranet:
+    internal: true
+
+volumes:
+  couchdb-data:
+  cozy-storage:
+
+services:
+  couchdb:
+    image: apache/couchdb
+    volumes:
+      - couchdb-data:/opt/couchdb/data
+    networks:
+      - intranet
+
+  redis:
+    image: redis:alpine
+    networks:
+      - intranet
+
+  cozy:
+    image: cozy-dev
+    links:
+      - couchdb:couchdb
+      - redis:redis
+    ports:
+      - "8080:8080"
+      - "6060:6060"
+    volumes:
+      - cozy-storage:/cozy/config
+    networks:
+      - internet
+      - intranet
+    depends_on:
+      - couchdb
+      - redis
