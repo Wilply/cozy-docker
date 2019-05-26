@@ -8,8 +8,8 @@ admin:
   port: 6060
   #secret_filename: cozy-admin-passphrase #?!?!?
 
-#registries:
-#- https://apps-registry.cozycloud.cc/
+registries:
+  - https://apps-registry.cozycloud.cc/
 
 #fs:
 #  url: file://localhost/cozy/storage
