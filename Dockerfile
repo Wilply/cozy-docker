@@ -15,7 +15,7 @@ RUN VERSION=$(cat /VERSION) && \
 
 RUN go get -d .
 
-RUN CGO_ENABLED=0 GOOS=linux VERSION=$(cat /VERSION) \
+RUN VERSION=$(cat /VERSION) && CGO_ENABLED=0 GOOS=linux \
     go build \
     #build a production release
     #needed because else builded as dev and causes problems like not asking for admin password
