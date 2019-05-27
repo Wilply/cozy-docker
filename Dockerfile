@@ -39,6 +39,4 @@ RUN ln -s /cozy/cozy-stack /bin/cozy-stack && \
 
 COPY root/ /
 
-RUN ls -al
-
 CMD ["/cozy/run.sh"]
