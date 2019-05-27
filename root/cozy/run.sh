@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo \#\#\# Cozy dockerized by Wilply \#\#\#
+
 [ -z "${UID}" ] && UID=1500
 [ -z "${GID}" ] && GID=1500
 [ -z "${RUN_AS_ROOT}" ] && RUN_AS_ROOT=0
@@ -10,6 +12,7 @@ if [ ! -e /cozy/cozy-admin-passphrase ]; then
 fi
 
 if [ ! -e /cozy/config/cozy.yaml ]; then
+    echo "[INFO] Using embed cozy config file"
     cp /cozy/cozy.yaml /cozy/config/cozy.yaml
 fi
 
