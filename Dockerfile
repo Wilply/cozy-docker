@@ -30,6 +30,8 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /cozy
 
+RUN mkdir /cozy/storage
+
 COPY --from=builder /cozy/cozy-stack /cozy/cozy-stack
 
 RUN ln -s /cozy/cozy-stack /bin/cozy-stack && \

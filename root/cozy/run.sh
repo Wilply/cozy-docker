@@ -9,6 +9,10 @@ if [ ! -e /cozy/cozy-admin-passphrase ]; then
 	printf ${COZY_ADMIN_PASS}'\n'${COZY_ADMIN_PASS}'\n' | cozy-stack config password /cozy
 fi
 
+if [ ! -e /cozy/config/cozy.yaml ]; then
+    cp /cozy/cozy.yaml /cozy/config/cozy.yaml
+fi
+
 if [ $(cat /etc/passwd | grep -c cozy) != 1 ]; then
     addgroup -g ${GID} cozy
 #    groupadd -g ${GID} cozy #debian slim

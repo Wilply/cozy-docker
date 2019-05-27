@@ -24,7 +24,7 @@ services:
       - intranet
 
   cozy:
-    image: cozy:v3
+    image: wilply/cozy-stack
     links:
       - couchdb:couchdb
       - redis:redis
