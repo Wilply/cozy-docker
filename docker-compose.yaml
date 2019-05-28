@@ -24,12 +24,12 @@ services:
       - intranet
 
   cozy:
-    image: cozy:v3
+    image: cozy:v4
     links:
       - couchdb:couchdb
       - redis:redis
     ports:
-      - "8080:8080"
+      - "80:8080"
       - "6060:6060"
     volumes:
       - cozy-storage:/cozy/config
