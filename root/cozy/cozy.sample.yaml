@@ -1,15 +1,15 @@
 host: 0.0.0.0
 port: 8080
 
-subdomains: nested #might be needed to change to flat
+subdomains: nested #can be needed to change to flat
 
 admin:
   host: localhost
   port: 6060
-  #secret_filename: cozy-admin-passphrase #?!?!?
 
 registries:
-  - https://apps-registry.cozycloud.cc/
+  default:
+    - https://apps-registry.cozycloud.cc/
 
 #fs:
 #  url: file://localhost/cozy/storage

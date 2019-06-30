@@ -4,7 +4,7 @@ echo \#\#\# Cozy dockerized by Wilply \#\#\#
 
 [ -z "${UID}" ] && UID=1500
 [ -z "${GID}" ] && GID=1500
-[ -z "${DOMAIN}" ] && DOMAIN=cozy.test
+[ -z "${DOMAIN}" ] && DOMAIN=cozy.tools
 [ -z "${RUN_AS_ROOT}" ] && RUN_AS_ROOT=0
 [ -z "${COZY_ADMIN_PASSWORD}" ] && export COZY_ADMIN_PASSWORD=changeme
 
@@ -24,11 +24,15 @@ if [ $(cat /etc/passwd | grep -c cozy) != 1 ]; then
 fi
 
 (sleep 10 && echo "[INFO] creating instance for domain \"${DOMAIN}\"" && \
-cozy-stack instance add --passphrase changeme --apps store,drive,settings ${DOMAIN}) &
+cozy-stack instance add --passphrase changeme --apps store,drive,settings ${DOMAIN}) & \
+echo "[INFO] done."
 
+echo "[INFO] Running cozy-stack."
 if [ ${RUN_AS_ROOT} = 1 ]; then
     echo "[WARNING] We recommend to not run cozy as root"
     cozy-stack --allow-root -c /cozy/config/cozy.yaml
 else 
     su cozy -c "cozy-stack serve -c /cozy/config/cozy.yaml"
 fi
+
+#cozy-stack files import --domain cozy.tools --from /cozy --to /

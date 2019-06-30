@@ -1,41 +1,49 @@
 version: "3"
 
 networks:
-  internet:
+  external-net:
     driver: bridge
-  intranet:
+  internal-net:
     internal: true
 
 volumes:
   couchdb-data:
-  cozy-storage:
+  redis-data:
+  cozy-config:
+  cozy-data:
 
 services:
   couchdb:
+    container_name: cozy-couchdb
     image: apache/couchdb
     volumes:
       - couchdb-data:/opt/couchdb/data
     networks:
-      - intranet
+      - internal-net
 
   redis:
+    container_name: cozy-redis
     image: redis:alpine
+    volumes:
+      - redis-data:/data
     networks:
-      - intranet
+      - internal-net
+    command: ["redis-server", "--appendonly", "yes"]
 
   cozy:
-    image: cozy:v4
+    container_name: cozy-stack
+    image: wilply/cozy-stack
     links:
       - couchdb:couchdb
       - redis:redis
     ports:
-      - "80:8080"
-      - "6060:6060"
+      - 8080:8080
     volumes:
-      - cozy-storage:/cozy/config
+      - cozy-config:/cozy/config
+      - cozy-data:/cozy/storage
     networks:
-      - internet
-      - intranet
+      - internal-net
+      - external-net
     depends_on:
       - couchdb
       - redis
