@@ -23,7 +23,7 @@ if [ $(cat /etc/passwd | grep -c cozy) != 1 ]; then
     chown -R cozy:cozy /cozy/
 fi
 
-(sleep 10 && echo "[INFO] creating instance for domain \"${DOMAIN}\"" && \
+(sleep 20 && echo "[INFO] creating instance for domain \"${DOMAIN}\"" && \
 cozy-stack instance add --passphrase changeme --apps store,drive,home,settings ${DOMAIN}) & \
 echo "[INFO] done."
 
